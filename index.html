@@ -11,6 +11,10 @@
 <body>
 <h3>Window Management Demo (<a href="https://github.com/michaelwasserman/window-placement-demo">GitHub</a>, <a href="https://w3c.github.io/window-management/">Spec</a>)</h3>
 <h4 id="warning" hidden=true style="color: red;"></h4>
+
+<button id="perm">
+  Request Permission
+</button>
 <div class="controls">
   <div id="openWindowControls" style="display:flex; align-items:center;">
     <button id="openWindowButton" style="flex-shrink: 0;">Open window</button>
@@ -53,6 +57,9 @@
 <script src="main.js"></script>
 <script>
 'use strict';
+perm.addEventListener("click", async () => {
+  await window.getScreenDetails();
+});
 window.addEventListener('load', () => {
   if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('./sw.js');
