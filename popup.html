@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <title>Popup: Window Management Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="application" id="application">
+<h3>Window Management Demo (<a href="https://github.com/michaelwasserman/window-placement-demo">GitHub</a>)</h3>
+<h4 id="warning" hidden=true style="color: red;"></h4>
+<div class="controls">
+  <div style="display:flex; align-items:center;">
+    <button id="updateScreensButton">Update screens</button>
+    <div class="dropdown">
+      <button id="fullscreenOpenerButton">Fullscreen opener</button>
+      <div class="dropdownContent" hidden=true id="fullscreenOpenerDropdown"></div>
+    </div>
+    <button id="moveToButton">Move window to</button>
+    left: <input id="moveToLeftInput" style="width:50px;" size=5 value="100" type="number"></input>
+    top: <input id="moveToTopInput" style="width:50px;" size=5 value="50" type="number"></input>
+    <button id="resizeToButton">Resize window to</button>
+    width: <input id="resizeToWidthInput" style="width:50px;" size=5 value="720" type="number"></input>
+    height: <input id="resizeToHeightInput" style="width:50px;" size=5 value="525" type="number"></input>
+  </div>
+</div>
+<p></p>
+<canvas id="screensCanvas" width="800" height="600" style="border-style: solid"></canvas>
+</div>
+
+<script src="main.js"></script>
+<script>
+'use strict';
+window.addEventListener('load', () => {
+  moveToLeftInput.value = window.screenLeft;
+  moveToTopInput.value = window.screenTop;
+  resizeToWidthInput.value = window.outerWidth;
+  resizeToHeightInput.value = window.outerHeight;
+
+  // Handle control button clicks and input events.
+  updateScreensButton.addEventListener('click', updateScreens);
+  fullscreenOpenerButton.addEventListener('click', fullscreenOpenerAndMoveThisPopup);
+  moveToButton.addEventListener('click', () => {
+    window.moveTo(moveToLeftInput.value, moveToTopInput.value);
+    updateScreens(/*requestPermission=*/false);
+  });
+  resizeToButton.addEventListener('click', () => {
+    window.resizeTo(resizeToWidthInput.value, resizeToHeightInput.value);
+    updateScreens(/*requestPermission=*/false);
+  });
+});
+</script>
+
+</body>
+</html>
